@@ -4,6 +4,9 @@ import {
   addProcedureAction,
   IProcedureStates
 } from "../store/reducers/procedure";
+import { IPatientStates } from "../store/reducers/patient";
+import { IDoctorStates } from "../store/reducers/doctor";
+import { IRoomStates } from "../store/reducers/room";
 import Procedures from "./../Procedures/Procedures";
 
 const toDate = (date: Date) =>
@@ -12,17 +15,32 @@ const toDate = (date: Date) =>
   }-${date.getDate()}`;
 
 const ProcedureDashboard: React.FC = () => {
-  let { nextId } = useSelector<
+  let { nextId, procedureList } = useSelector<
     { procedures: IProcedureStates },
     IProcedureStates
   >(state => state.procedures);
+  let { patientList } = useSelector<
+    { patients: IPatientStates },
+    IPatientStates
+  >(state => state.patients);
+  let { doctorList } = useSelector<{ doctors: IDoctorStates }, IDoctorStates>(
+    state => state.doctors
+  );
+  let { roomList } = useSelector<{ rooms: IRoomStates }, IRoomStates>(
+    state => state.rooms
+  );
   const dispatch = useDispatch();
+  const [patientId, setPatientId] = useState<Number>();
+
   const [description, setDescription] = useState("");
   const [status, setStatus] = useState<"Planned" | "In Progress" | "Finished">(
     "Planned"
   );
   const [plannedStartTime, setPlannedStartTime] = useState<Date>();
   const [estimatedEndTime, setEstimatedEndTime] = useState<Date>();
+  const [doctorId, setDoctorId] = useState<Number>();
+  const [roomId, setRoomId] = useState<Number>();
+
   return (
     <div>
       <h4 className="ui dividing header">New Procedure Form</h4>
@@ -31,15 +49,11 @@ const ProcedureDashboard: React.FC = () => {
           <label>Patient</label>
           <select
             name="patient"
-            onChange={event =>
-              setStatus(
-                event.target.value as "Planned" | "In Progress" | "Finished"
-              )
-            }
+            onChange={event => setPatientId(Number(event.target.value))}
           >
-            {["Planned", "In Progress", "Finished"].map(patient => (
-              <option value={patient} key={patient}>
-                {patient}
+            {patientList.map(patient => (
+              <option value={Number(patient.id)} key={patient.id}>
+                {`${patient.firstName} ${patient.lastName}`}
               </option>
             ))}
           </select>
@@ -103,49 +117,41 @@ const ProcedureDashboard: React.FC = () => {
           <label>Doctor</label>
           <select
             name="doctor"
-            onChange={event =>
-              setStatus(
-                event.target.value as "Planned" | "In Progress" | "Finished"
-              )
-            }
+            onChange={event => setDoctorId(Number(event.target.value))}
           >
-            {["Planned", "In Progress", "Finished"].map(doctor => (
-              <option value={doctor} key={doctor}>
-                {doctor}
+            {doctorList.map(doctor => (
+              <option value={doctor.id} key={doctor.id}>
+                {doctor.name}
               </option>
             ))}
           </select>
         </div>
         <div className="field">
           <label>Room</label>
-          <select
-            name="room"
-            onChange={event =>
-              setStatus(
-                event.target.value as "Planned" | "In Progress" | "Finished"
-              )
-            }
-          >
-            {["Planned", "In Progress", "Finished"].map(room => (
-              <option value={room} key={room}>
-                {room}
+          <select name="room" onChange={event => setRoomId(Number(event.target.value))}>
+            {roomList.map(room => (
+              <option value={room.id} key={room.id}>
+                {room.name}
               </option>
             ))}
           </select>
         </div>
         <button
           className="ui button"
-          // onClick={() =>
-          //   dispatch(
-          //     addPatientAction({
-          //       id: nextId,
-          //       firstName,
-          //       lastName,
-          //       gender,
-          //       dateOfBirth
-          //     })
-          //   )
-          // }
+          onClick={() =>
+            dispatch(
+              addProcedureAction({
+                id: nextId,
+                patientId,
+                description,
+                status,
+                plannedStartTime,
+                estimatedEndTime,
+                doctorId,
+                roomId
+              })
+            )
+          }
         >
           Add Procedure
         </button>

@@ -15,9 +15,9 @@ export interface IPatientStates {
 const initialState: IPatientStates = {
   nextId: 4,
   patientList: [
-    { id: 1, firstName: "john", lastName: "smith", gender: "Male"},
-    { id: 2, firstName: "jane", lastName: "doe", gender: "Female", dateOfBirth: new Date('10/28/1995') },
-    { id: 3, firstName: "amy", lastName: "lee", dateOfBirth: new Date('10/28/1995') }
+    { id: 1, firstName: "John", lastName: "Smith", gender: "Male"},
+    { id: 2, firstName: "Jane", lastName: "Doe", gender: "Female", dateOfBirth: new Date('10/28/1995') },
+    { id: 3, firstName: "Amy", lastName: "Lee", dateOfBirth: new Date('10/28/1995') }
   ]
 };
 

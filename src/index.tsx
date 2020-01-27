@@ -5,13 +5,18 @@ import { createStore, combineReducers } from 'redux';
 
 import patientReducer from './store/reducers/patient';
 import procedureReducer from './store/reducers/procedure';
+import doctorReducer from './store/reducers/doctor';
+import roomReducer from './store/reducers/room';
+
 import './index.css';
 import App from './App';
 import * as serviceWorker from './serviceWorker';
 
 const rootReducer = combineReducers({
     patients: patientReducer,
-    procedures: procedureReducer
+    procedures: procedureReducer,
+    doctors: doctorReducer,
+    rooms: roomReducer
 });
 
 console.log(rootReducer, 'rootReducer');
