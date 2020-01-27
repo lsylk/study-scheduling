@@ -8,17 +8,6 @@ interface IProcedure {
   doctorId: number;
   roomId: number;
 }
-
-interface IDoctor {
-  id: number;
-  name: string;
-}
-
-interface IRoom {
-  id: number;
-  name: string;
-}
-
 interface IProceduresState {
   nextId: number;
   procedureList: IProcedure[];
