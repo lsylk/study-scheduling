@@ -1,4 +1,9 @@
 .Patient-form {
     display: flex;
-    flex-direction: column;
+    flex-wrap: wrap;
+}
+
+.Patient-form > span {
+    margin: 10px;
+    display: inline-block;
 }

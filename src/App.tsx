@@ -1,18 +1,18 @@
-import React from 'react';
-import './App.css';
-import PatientsDashboard from './PatientsDashboard/PatientsDashboard';
+import React from "react";
+import "./App.css";
+import PatientsDashboard from "./PatientsDashboard/PatientsDashboard";
 
 const App: React.FC = () => {
   return (
     <div className="App">
       <header className="App-header">
-        <p>
-          Schedule
-        </p>
+        <p>Procedure Scheduling</p>
       </header>
-      <PatientsDashboard/>
+      <div className="App-body">
+        <PatientsDashboard />
+      </div>
     </div>
   );
-}
+};
 
 export default App;
