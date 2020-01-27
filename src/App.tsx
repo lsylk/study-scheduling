@@ -1,6 +1,7 @@
 import React from "react";
 import "./App.css";
 import PatientsDashboard from "./PatientsDashboard/PatientsDashboard";
+import ProcedureDashboard from "./ProcedureDashboard/ProcedureDashboard";
 
 const App: React.FC = () => {
   return (
@@ -10,6 +11,9 @@ const App: React.FC = () => {
       </header>
       <div className="App-body">
         <PatientsDashboard />
+
+        <hr></hr>
+        <ProcedureDashboard />
       </div>
     </div>
   );

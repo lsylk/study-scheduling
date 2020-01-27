@@ -22,31 +22,37 @@ const PatientsDashboard: React.FC = () => {
   const [dateOfBirth, setDateOfBirth] = useState<Date>();
   return (
     <div>
-      <h2>New Patient Form</h2>
-      <form className="Patient-form">
-        <span>
-          <label>First Name</label>
-          <input
-            type="text"
-            name="firstName"
-            aria-label="First Name"
-            value={firstName}
-            onChange={event => setFirstName(event.target.value)}
-            required
-          />
-        </span>
-        <span>
-          <label>Last Name</label>
-          <input
-            type="text"
-            name="lastName"
-            aria-label="Last Name"
-            value={lastName}
-            onChange={event => setLastName(event.target.value)}
-            required
-          />
-        </span>
-        <span>
+      <h4 className="ui dividing header">New Patient Form</h4>
+      <form className="ui form">
+        <div className="field">
+          <label>Name</label>
+          <div className="two fields">
+            <div className="field">
+              <input
+                type="text"
+                name="firstName"
+                aria-label="First Name"
+                value={firstName}
+                onChange={event => setFirstName(event.target.value)}
+                placeholder="First Name"
+                required
+              />
+            </div>
+            <div className="field">
+              <input
+                type="text"
+                name="lastName"
+                aria-label="Last Name"
+                value={lastName}
+                onChange={event => setLastName(event.target.value)}
+                placeholder="Last Name"
+                required
+              />
+            </div>
+          </div>
+        </div>
+
+        <div className="field">
           <label>Gender</label>
           <select
             name="gender"
@@ -60,8 +66,8 @@ const PatientsDashboard: React.FC = () => {
               </option>
             ))}
           </select>
-        </span>
-        <span>
+        </div>
+        <div className="field">
           <label>Date of Birth</label>
           <input
             type="date"
@@ -71,8 +77,9 @@ const PatientsDashboard: React.FC = () => {
               setDateOfBirth(new Date(event.target.value));
             }}
           />
-        </span>
+        </div>
         <button
+          className="ui button"
           onClick={() =>
             dispatch(
               addPatientAction({
@@ -90,15 +97,19 @@ const PatientsDashboard: React.FC = () => {
       </form>
       <hr></hr>
       <h2>Patients List</h2>
-      <table>
-        <tr>
-          {["First Name", "Last Name", "Gender", "Date of Birth"].map(
-            header => {
-              return <th>{header}</th>;
-            }
-          )}
-        </tr>
-        <Patients />
+      <table className="ui celled table">
+        <thead>
+          <tr>
+            {["First Name", "Last Name", "Gender", "Date of Birth"].map(
+              header => {
+                return <th>{header}</th>;
+              }
+            )}
+          </tr>
+        </thead>
+        <tbody>
+          <Patients />
+        </tbody>
       </table>
     </div>
   );
