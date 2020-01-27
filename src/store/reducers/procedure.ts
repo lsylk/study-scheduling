@@ -1,4 +1,4 @@
-interface IProcedure {
+export interface IProcedure {
   id: number;
   patientId: number;
   description: string;
@@ -8,18 +8,18 @@ interface IProcedure {
   doctorId: number;
   roomId: number;
 }
-interface IProceduresState {
+export interface IProcedureStates {
   nextId: number;
   procedureList: IProcedure[];
 }
 
-const initialState: IProceduresState = {
+const initialState: IProcedureStates = {
   nextId: 3,
   procedureList: [
     {
       id: 1,
       patientId: 1,
-      description: "CT Scan",
+      description: "Headaches and nausea",
       status: "Planned",
       plannedStartTime: new Date("30/1/2020"),
       doctorId: 1,
@@ -28,7 +28,7 @@ const initialState: IProceduresState = {
     {
       id: 2,
       patientId: 3,
-      description: "X-rays",
+      description: "Broken Leg",
       status: "In Progress",
       plannedStartTime: new Date("26/1/2020"),
       doctorId: 2,

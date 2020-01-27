@@ -1,14 +1,14 @@
-interface IDoctor {
+export interface IDoctor {
   id: number;
   name: string;
 }
 
-interface IDoctorsState {
+export interface IDoctorStates {
   nextId: number;
   doctorList: IDoctor[];
 }
 
-const initialState: IDoctorsState = {
+const initialState: IDoctorStates = {
   nextId: 3,
   doctorList: [
     {

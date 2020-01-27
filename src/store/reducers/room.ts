@@ -1,22 +1,22 @@
-interface IRoom {
+export interface IRoom {
   id: number;
   name: string;
 }
-interface IRoomsState {
+export interface IRoomStates {
   nextId: number;
   roomList: IRoom[];
 }
 
-const initialState: IRoomsState = {
+const initialState: IRoomStates = {
   nextId: 3,
   roomList: [
     {
       id: 1,
-      name: "X-ray"
+      name: "CT Scan"
     },
     {
       id: 2,
-      name: "Emergency"
+      name: "X-ray"
     }
   ]
 };
