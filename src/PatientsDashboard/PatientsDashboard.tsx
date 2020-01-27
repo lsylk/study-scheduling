@@ -1,9 +1,7 @@
 import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { addPatientAction, IPatientStates } from "../store/reducers/patient";
-import { addProcedureAction } from "../store/reducers/procedure";
 import Patients from "./../Patients/Patients";
-import "./PatientDashboard.css";
 
 const toDate = (date: Date) =>
   `${date.getFullYear()}-${
@@ -11,7 +9,7 @@ const toDate = (date: Date) =>
   }-${date.getDate()}`;
 
 const PatientsDashboard: React.FC = () => {
-  let { patientList, nextId } = useSelector<
+  let { nextId } = useSelector<
     { patients: IPatientStates },
     IPatientStates
   >(state => state.patients);

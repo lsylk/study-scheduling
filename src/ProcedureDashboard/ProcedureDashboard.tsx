@@ -1,7 +1,10 @@
 import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { addPatientAction, IPatientStates } from "../store/reducers/patient";
-import { addProcedureAction } from "../store/reducers/procedure";
+import {
+  addProcedureAction,
+  IProcedureStates
+} from "../store/reducers/procedure";
+import Procedures from "./../Procedures/Procedures";
 
 const toDate = (date: Date) =>
   `${date.getFullYear()}-${
@@ -9,18 +12,17 @@ const toDate = (date: Date) =>
   }-${date.getDate()}`;
 
 const ProcedureDashboard: React.FC = () => {
-  let { patientList, nextId } = useSelector<
-    { patients: IPatientStates },
-    IPatientStates
-  >(state => state.patients);
-  const dispatch = useDispatch(); //how to add a person to the list
+  let { nextId } = useSelector<
+    { procedures: IProcedureStates },
+    IProcedureStates
+  >(state => state.procedures);
+  const dispatch = useDispatch();
   const [description, setDescription] = useState("");
   const [status, setStatus] = useState<"Planned" | "In Progress" | "Finished">(
     "Planned"
   );
   const [plannedStartTime, setPlannedStartTime] = useState<Date>();
   const [estimatedEndTime, setEstimatedEndTime] = useState<Date>();
-
   return (
     <div>
       <h4 className="ui dividing header">New Procedure Form</h4>
@@ -166,7 +168,9 @@ const ProcedureDashboard: React.FC = () => {
             })}
           </tr>
         </thead>
-        <tbody> </tbody>
+        <tbody>
+          <Procedures />
+        </tbody>
       </table>
     </div>
   );
