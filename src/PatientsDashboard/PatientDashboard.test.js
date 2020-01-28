@@ -2,7 +2,7 @@ import React from "react";
 
 import { configure, mount } from "enzyme";
 import Adapter from "enzyme-adapter-react-16";
-import PatientDashboard from "./PatientsDashboard";
+import PatientDashboard from "./PatientsDashboard.tsx";
 
 import { Provider } from 'react-redux';
 import { createStore, combineReducers } from 'redux';

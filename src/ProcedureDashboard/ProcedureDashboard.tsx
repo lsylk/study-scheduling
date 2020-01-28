@@ -31,7 +31,6 @@ const ProcedureDashboard: React.FC = () => {
   );
   const dispatch = useDispatch();
   const [patientId, setPatientId] = useState<number>(1);
-
   const [description, setDescription] = useState("");
   const [status, setStatus] = useState<"Planned" | "In Progress" | "Finished">(
     "Planned"
