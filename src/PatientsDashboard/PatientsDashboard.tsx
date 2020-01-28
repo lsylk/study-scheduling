@@ -13,7 +13,7 @@ const PatientsDashboard: React.FC = () => {
     { patients: IPatientStates },
     IPatientStates
   >(state => state.patients);
-  const dispatch = useDispatch(); //how to add a person to the list
+  const dispatch = useDispatch();
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
   const [gender, setGender] = useState<"Male" | "Female">("Male");
@@ -78,7 +78,7 @@ const PatientsDashboard: React.FC = () => {
         </div>
         <button
           className="ui button"
-          onClick={() =>
+          onClick={(event) => {
             dispatch(
               addPatientAction({
                 id: nextId,
@@ -87,20 +87,22 @@ const PatientsDashboard: React.FC = () => {
                 gender,
                 dateOfBirth
               })
-            )
+            );
+            event.preventDefault();
+          }
           }
         >
           Add patient
         </button>
       </form>
       <hr></hr>
-      <h2>Patients List</h2>
+      <h4>Patient List</h4>
       <table className="ui celled table">
         <thead>
           <tr>
             {["First Name", "Last Name", "Gender", "Date of Birth"].map(
-              header => {
-                return <th>{header}</th>;
+              (header, index) => {
+                return <th key={index}>{header}</th>;
               }
             )}
           </tr>

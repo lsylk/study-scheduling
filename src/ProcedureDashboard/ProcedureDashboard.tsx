@@ -30,16 +30,16 @@ const ProcedureDashboard: React.FC = () => {
     state => state.rooms
   );
   const dispatch = useDispatch();
-  const [patientId, setPatientId] = useState<Number>();
+  const [patientId, setPatientId] = useState<number>(1);
 
   const [description, setDescription] = useState("");
   const [status, setStatus] = useState<"Planned" | "In Progress" | "Finished">(
     "Planned"
   );
-  const [plannedStartTime, setPlannedStartTime] = useState<Date>();
-  const [estimatedEndTime, setEstimatedEndTime] = useState<Date>();
-  const [doctorId, setDoctorId] = useState<Number>();
-  const [roomId, setRoomId] = useState<Number>();
+  const [plannedStartTime, setPlannedStartTime] = useState<Date>(new Date());
+  const [estimatedEndTime, setEstimatedEndTime] = useState<Date>(new Date());
+  const [doctorId, setDoctorId] = useState<number>(1);
+  const [roomId, setRoomId] = useState<number>(1);
 
   return (
     <div>
@@ -50,6 +50,7 @@ const ProcedureDashboard: React.FC = () => {
           <select
             name="patient"
             onChange={event => setPatientId(Number(event.target.value))}
+            required
           >
             {patientList.map(patient => (
               <option value={Number(patient.id)} key={patient.id}>
@@ -79,6 +80,7 @@ const ProcedureDashboard: React.FC = () => {
                 event.target.value as "Planned" | "In Progress" | "Finished"
               )
             }
+            required
           >
             {["Planned", "In Progress", "Finished"].map(status => (
               <option value={status} key={status}>
@@ -118,6 +120,7 @@ const ProcedureDashboard: React.FC = () => {
           <select
             name="doctor"
             onChange={event => setDoctorId(Number(event.target.value))}
+            required
           >
             {doctorList.map(doctor => (
               <option value={doctor.id} key={doctor.id}>
@@ -128,7 +131,11 @@ const ProcedureDashboard: React.FC = () => {
         </div>
         <div className="field">
           <label>Room</label>
-          <select name="room" onChange={event => setRoomId(Number(event.target.value))}>
+          <select
+            name="room"
+            onChange={event => setRoomId(Number(event.target.value))}
+            required
+          >
             {roomList.map(room => (
               <option value={room.id} key={room.id}>
                 {room.name}
@@ -138,26 +145,32 @@ const ProcedureDashboard: React.FC = () => {
         </div>
         <button
           className="ui button"
-          onClick={() =>
-            dispatch(
-              addProcedureAction({
-                id: nextId,
-                patientId,
-                description,
-                status,
-                plannedStartTime,
-                estimatedEndTime,
-                doctorId,
-                roomId
-              })
-            )
+          onClick={(event) => {
+            console.log(roomId, doctorId, plannedStartTime, patientId)
+            if(roomId !== undefined && doctorId !== undefined && plannedStartTime !== undefined && patientId !== undefined && description !== "") {
+              dispatch(
+                addProcedureAction({
+                  id: nextId,
+                  patientId,
+                  description,
+                  status,
+                  plannedStartTime,
+                  estimatedEndTime,
+                  doctorId,
+                  roomId
+                })
+              )
+              
+            }
+            event.preventDefault();
+            }
           }
         >
           Add Procedure
         </button>
       </form>
       <hr></hr>
-      <h2>Procedure List</h2>
+      <h4>Procedure List</h4>
       <table className="ui celled table">
         <thead>
           <tr>
@@ -169,8 +182,8 @@ const ProcedureDashboard: React.FC = () => {
               "Estimated End Time",
               "Doctor",
               "Room"
-            ].map(header => {
-              return <th>{header}</th>;
+            ].map((header, index) => {
+              return <th key={index}>{header}</th>;
             })}
           </tr>
         </thead>

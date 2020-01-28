@@ -1,12 +1,12 @@
 export interface IProcedure {
   id: number;
-  patientId: number;
+  patientId: number | 1;
   description: string;
   status: "Planned" | "In Progress" | "Finished";
   plannedStartTime: Date;
   estimatedEndTime?: Date;
-  doctorId: number;
-  roomId: number;
+  doctorId: number | 1;
+  roomId: number | 1;
 }
 export interface IProcedureStates {
   nextId: number;
@@ -21,7 +21,7 @@ const initialState: IProcedureStates = {
       patientId: 1,
       description: "Headaches and nausea",
       status: "Planned",
-      plannedStartTime: new Date("30/1/2020"),
+      plannedStartTime: new Date("2020-1-30 12:00:00"),
       doctorId: 1,
       roomId: 1
     },
@@ -30,7 +30,7 @@ const initialState: IProcedureStates = {
       patientId: 3,
       description: "Broken Leg",
       status: "In Progress",
-      plannedStartTime: new Date("26/1/2020"),
+      plannedStartTime: new Date("2020-1-26 14:00:00"),
       doctorId: 2,
       roomId: 2
     }
@@ -39,7 +39,7 @@ const initialState: IProcedureStates = {
 
 const reducer = (
   state = initialState,
-  action: { type: "ADD_PROCEDURE" | "UPDATE_PROCEDURE"; data: IProcedure }
+  action: { type: "ADD_PROCEDURE" ; data: IProcedure } | {type: "UPDATE_PROC_STATUS", id: number, status: "Planned" | "In Progress" | "Finished"}
 ) => {
   switch (action.type) {
     case "ADD_PROCEDURE": {
@@ -47,10 +47,10 @@ const reducer = (
       newState.procedureList.push(action.data);
       return newState;
     }
-    case "UPDATE_PROCEDURE": {
+    case "UPDATE_PROC_STATUS": {
         let newState = Object.assign({}, state);
-        let i = newState.procedureList.findIndex(procedure => procedure.id === action.data.id);
-        newState.procedureList[i] = action.data;
+        let i = newState.procedureList.findIndex(procedure => procedure.id === action.id);
+        newState.procedureList[i].status = action.status;
         return newState;
     }
   }
@@ -64,11 +64,12 @@ export function addProcedureAction(procedure: IProcedure) {
   };
 }
 
-export function UpdateProcedureAction(procedure: IProcedure) {
-    return {
-      type: "UPDATE_PROCEDURE",
-      data: procedure
-    };
+export function changeProcStatus(procedureId: number, status: "Planned" | "In Progress" | "Finished") {
+  return {
+    type: "UPDATE_PROC_STATUS",
+    id: procedureId,
+    status
   }
+}
 
 export default reducer;

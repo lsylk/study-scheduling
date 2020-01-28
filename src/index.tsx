@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
 import { createStore, combineReducers } from 'redux';
 
+import generalReducer from './store/reducers/general';
 import patientReducer from './store/reducers/patient';
 import procedureReducer from './store/reducers/procedure';
 import doctorReducer from './store/reducers/doctor';
@@ -13,6 +14,7 @@ import App from './App';
 import * as serviceWorker from './serviceWorker';
 
 const rootReducer = combineReducers({
+    tab: generalReducer,
     patients: patientReducer,
     procedures: procedureReducer,
     doctors: doctorReducer,
